@@ -1,0 +1,39 @@
+<!--Content Heading Block-->
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+<% } else { res.redirect('/') } %>
+
+<!--Message Block-->
+<%- messages() %> <!-- the (#) disables the code while the (-) or unescaped indicator will display it-->
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error=> { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }) %>
+    </ul>
+<% }%>
+
+<!-- Formulário de registro -->
+<form id="register-form" action="/account/register" method="post">
+    <fieldset>
+        <label for="account_firstname"><b>First name</b></label>
+        <input type="text" placeholder="First Name" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>">
+
+        <label for="account_lastname"><b>Last name</b></label>
+        <input type="text" placeholder="Last Name"name="account_lastname" required value="<%= locals.account_lastname %>">
+
+        <label for="account_email"><b>Email address</b></label>
+        <input type="email" placeholder="Email Address"name="account_email" required value="<%= locals.account_email %>">
+
+        <label for="account_password"><b>Password</b></label>
+        <span>Passwords must be a minimun of 12 character and contain at least 1 number, 1 capital letter, and 1 special character</span>
+        <input type="password" placeholder="Password" name="account_password" id="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* ).{12,}">
+
+        <button type="submit">REGISTER</button>
+    </fieldset>
+</form>
