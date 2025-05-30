@@ -8,9 +8,19 @@
 <!--Message Block-->
 <%- messages() %> <!-- the (#) disables the code while the (-) or unescaped indicator will display it-->
 
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error=> { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }) %>
+    </ul>
+<% }%>
+
 <!-- Login form -->
  <fieldset>
-    <form id="login-form" action="/account/login" method="post">
+    <form id="loginForm" action="/account/login" method="post">
         <label for="account_email"><b>Email</b><br></label>
         <input type="email" placeholder="Enter a valid email address" name="account_email" required
             value="<%= locals.account_email %>">
