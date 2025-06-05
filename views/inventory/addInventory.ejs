@@ -1,0 +1,45 @@
+<% if (typeof flash !== "undefined" && flash.notice) { %>
+    <div class="flash-message" style="display: none;"><%= flash.notice %></div>
+  <% } %>
+  
+  <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+    <ul class="error-list">
+      <% errors.forEach(function(error) { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+<% } %>
+
+<form action="/inv/addInventory" id="addCar" method="Post">
+  <label for="classification_name">Classification: <br></label>
+  <%- classificationList %>
+
+  <label for="inv_make">Make: <br></label>
+  <input type="text" placeholder="Make" name="inv_make" required value="<%= locals.inv_make %>" pattern="[A-Za-z]{1,}" title="Letters Only">
+
+  <label for="inv_model">Model: <br></label>
+  <input type="text" placeholder="Model" name="inv_model" required value="<%= locals.inv_model %>" pattern="[A-Za-z0-9].{1,}" title="Letters and numbers only">
+
+  <label for="inv_year">Year: <br></label>
+  <input type="number" placeholder="Year" name="inv_year" min="1901" max="2099" step="1" required value="<%= locals.inv_year %>" pattern="[0-9].{4,4}" title="4 digit year only">
+
+  <label for="inv_description">Description: <br></label>
+  <input type="text" placeholder="Description" name="inv_description" required value="<%= locals.inv_description %>" pattern="(*).{1,}">
+
+  <label for="inv_image">Image: <br><br></label>
+  <input type="hidden" name="inv_image" value="/images/vehicles/no-image.png" >
+
+  <label for="inv_thumbnail">Thumbnail Image: <br><br></label>
+  <input type="text" id="inv_thumbnail" name="inv_thumbnail" required maxlength="100" value="<%= typeof inv_thumbnail !== 'undefined' ? inv_thumbnail : '/images/vehicles/no-image-tn.png' %>">
+
+  <label for="inv_price">Price: <br></label>
+  <input type="number" placeholder="Price" name="inv_price" min="1" step="any" required value="<%= locals.inv_price %>" pattern="[0-9].{1,}" title="Whole number only">
+
+  <label for="inv_miles">Miles: <br></label>
+  <input type="number" placeholder="00000" name="inv_miles" required value="<%= locals.inv_miles %>" pattern="[0-9].{1,}" title="Whole numbers only">
+
+  <label for="inv_color">Color: <br></label>
+  <input type="text" placeholder="Color" name="inv_color" required value="<%= locals.inv_color %>" pattern="[A-Za-z].{1,}">
+
+  <button type="submit">ADD VEHICLE</button>
+</form>

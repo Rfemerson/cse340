@@ -11,6 +11,7 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
+const invController = require("./controllers/invController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/")
 const session = require("express-session")
@@ -54,6 +55,20 @@ app.use(function(req, res, next){
   next()
 })
 app.use("/account", require("./routes/accountRoute"))
+// Route for registration view
+app.get("/register", utilities.handleErrors(accountController.buildRegister))
+// Route for process registration
+app.get("/register", utilities.handleErrors(accountController.registerAccount))
+// Route for Inventory Management view
+app.get("/management", utilities.handleErrors(invController.buildManagementPage))
+// Route for Add Class View
+app.get("/add-classification", utilities.handleErrors(invController.buildNewClass))
+// Route to add Class to database
+app.get("/add-classification", utilities.handleErrors(invController.addClassification))
+app.get("/addInventory", utilities.handleErrors(invController.buildInventoryPage))
+app.get("/addInventory", utilities.handleErrors(invController.addCarToDatabase))
+
+
 
 /* ***********************
  * Routes
@@ -65,6 +80,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", require("./routes/inventoryRoute"))
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
+app.use("/inventory", require("./routes/inventoryRoute"), utilities.handleErrors(inventoryRoute))
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})

@@ -1,0 +1,22 @@
+<% if (typeof flash !== "undefined" && flash.notice) { %>
+    <div class="flash-message" style="display: none;"><%= flash.notice %></div>
+  <% } %>
+  
+  <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+    <ul class="error-list">
+      <% errors.forEach(function(error) { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+<% } %>
+
+<!-- Content -->
+<form action="/inv/add-classification" id="addClass" method="post">
+    <fieldset>
+        <label for="classification_name">Classification: </label>
+        <input type="text" placeholder="Classification Name" name="classification_name" required
+            value="<%= locals.classification_name %>" pattern="[A-Za-z]{.}" title="Letters only">
+
+        <button type="submit">Add Classification</button>
+    </fieldset>
+</form>

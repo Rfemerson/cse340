@@ -1,0 +1,19 @@
+<!--Content Heading Block-->
+<% if (title) { %>
+    <h1 id="manag-title"><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+    
+    <!--Message Block-->
+<%- messages() %> 
+
+<!-- Alterar -->
+
+<!--Management View-->
+<section id="managementPage">
+    <h2>Click the button to add a new classification of vehicles</h2>
+    <a href="/inventory/add-classification" id="newClassBtn">Add New Classification</a>
+    <h2>Click the button to add a new vehicle to the inventory</h2>
+    <a href="/inventory/addInventory" id="newCarBtn">Add New Vehicle</a>
+</section>
