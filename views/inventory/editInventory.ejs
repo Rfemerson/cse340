@@ -1,0 +1,50 @@
+<!--Content Heading Block-->
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+      res.redirect('/')
+  } %>
+<!--Message Block-->
+<%- messages() %> <!-- the (#) disables the code while the (-) or unescaped indicator will display it-->
+
+<form action="/inventory/update" id="updateForm" method="Post">
+    <fieldset>
+      <label for="classification_name">Classification: <br></label>
+      <%- classificationList %>
+  
+      <label for="inv_make">Make: <br></label>
+      <input type="text" placeholder="Make" name="inv_make" required <% if(locals.inv_make) { %> value="<%= locals.inv_make %>"<% } %> pattern="[A-Za-z]{1,}" title="Letters Only">
+  
+      <label for="inv_model">Model: <br></label>
+      <input type="text" placeholder="Model" name="inv_model" required <% if(locals.inv_model) { %> value="<%= locals.inv_model %>"<% } %> pattern="[A-Za-z0-9].{1,}" title="Letters and numbers only">
+  
+      <label for="inv_year">Year: <br></label>
+      <input type="number" name="inv_year" min="1901" max="2099" step="1" required <% if(locals.inv_year) { %>value="<%= locals.inv_year %>"<% } %> pattern="[0-9].{4,4}" title="4 digit year only">
+  
+      <label for="inv_description">Description: <br></label>
+      <input type="text" placeholder="Description" name="inv_description" required <% if(locals.inv_description) { %>value="<%= locals.inv_description %>"<% } %> pattern="(*).{1,}">
+      
+      <label for="inv_image">Image</label><br>
+      <input id="inv_image" name="inv_image" type="text" required value="<%= locals.inv_image %>"><br>
+      
+      <label for="inv_thumbnail">Thumbnail</label><br>
+      <input id="inv_thumbnail" name="inv_thumbnail" type="text" required value="<%= locals.inv_thumbnail %>"><br>
+  
+      <label for="inv_price">Price: <br></label>
+      <input type="number" placeholder="Price" name="inv_price" min="1" step="any" required <% if(locals.inv_price) { %>value="<%= locals.inv_price %>"<% } %> pattern="[0-9].{1,}" title="Whole number only">
+  
+      <label for="inv_miles">Miles: <br></label>
+      <input type="number" placeholder="00000" name="inv_miles" required <% if(locals.inv_miles) { %>value="<%= locals.inv_miles %>"<% } %> pattern="[0-9].{1,}" title="Whole numbers only">
+  
+      <label for="inv_color">Color: <br></label>
+      <input type="text" placeholder="Color" name="inv_color" required <% if(locals.inv_color) { %>value="<%= locals.inv_color %>"<% } %> pattern="[A-Za-z].{1,}">
+  
+      <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+
+      <button type="submit">UPDATE VEHICLE</button>
+    </fieldset>
+</form>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+<!-- <script src="../../js/inv-update.js"></script> -->

@@ -19,6 +19,8 @@ const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const accountController = require("./controllers/accountController")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+
 
 /* ***********************
  * View Engine and Templates
@@ -43,8 +45,8 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
-
-// BodyParser 
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
