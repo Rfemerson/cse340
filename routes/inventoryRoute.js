@@ -22,9 +22,12 @@ router.post("/add-classification",invController.addClassification)
 router.get("/addInventory", invController.buildInventoryPage)
 router.post("/addInventory",invController.addCarToDatabase);
 
+// vehicle inventory modification route
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+// vehicle edit route
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
-
+// vehicle delete route
+router.get("/delete/:inventoryId", utilities.handleErrors(invController.deleteVehicleData))
 // update vehicle post route
 router.post(
     "/update",
@@ -32,5 +35,8 @@ router.post(
     invValidate.checkUpdateInventoryData,
     utilities.handleErrors(invController.updateInventory)
 );
+
+//Process vehicle delete
+router.post("/deleteComplete", utilities.handleErrors(invController.deleteInventory))
 
 module.exports = router;

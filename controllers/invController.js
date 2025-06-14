@@ -320,4 +320,53 @@ invCont.updateInventory = async function (req, res, next) {
   }
 }
 
+/* ***********************
+* Build Delete Vehicle View
+* *********************** */
+invCont.deleteVehicleData = async function (req, res, next) {
+  const inv_id = req.params.inventoryId
+  let nav = await utilities.getNav()
+  const invData = await invModel.getDetailsByInventoryId(inv_id)
+  const itemName = `${invData.inv_make} ${invData.inv_model}`
+  res.render ("./inventory/delete-confirm", {
+    title: "Delete " + itemName,
+    nav,
+    errors: null,
+    inv_id: invData.inv_id,
+    inv_make: invData.inv_make,
+    inv_model: invData.inv_model,
+    inv_year: invData.inv_year,
+    
+  })
+}
+
+  /* *************************
+  * Delete Vehicle from Database
+  * ************************* */
+invCont.deleteInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const 
+    {inv_id} = req.body
+  const deleteVehicle = await invModel.deleteVehicleData(inv_id);
+    if (deleteVehicle) {
+      
+      req.flash("notice", "The vehicle and data was deleted.")
+      res.redirect("/inv/")
+    } else {
+      const itemName = `${inv_make} ${inv_model}`
+      const invData = await invModel.getDetailsByInventoryId(inv_id)
+      req.flash("notice", "Sorry, the insert failed.")
+      res.status(501).render("inventory/delete-confirm", {
+        title: "Delete " + itemName,
+      nav,
+      errors: null,
+      inv_id: invData.inv_id,
+      inv_make: invData.inv_make,
+      inv_model: invData.inv_model,
+      inv_year: invData.inv_year,
+    })
+  
+  }
+}
+
 module.exports = invCont

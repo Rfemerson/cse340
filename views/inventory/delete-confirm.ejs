@@ -1,0 +1,36 @@
+<!--Content Heading Block-->
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+      res.redirect('/')
+  } %>
+<!--Message Block-->
+<%- messages() %> <!-- the (#) disables the code while the (-) or unescaped indicator will display it-->
+
+<form action="/inventory/deleteComplete" id="deleteForm" method="Post">
+    <fieldset>
+      <label for="classification_name">Classification: <br></label>
+      <%- classificationList %>
+  
+      <label for="inv_make">Make: <br></label>
+      <input type="text" placeholder="Make" name="inv_make" required <% if(locals.inv_make) { %> value="<%= locals.inv_make %>"<% } %> pattern="[A-Za-z]{1,}" title="Letters Only" readonly>
+  
+      <label for="inv_model">Model: <br></label>
+      <input type="text" placeholder="Model" name="inv_model" required <% if(locals.inv_model) { %> value="<%= locals.inv_model %>"<% } %> pattern="[A-Za-z0-9].{1,}" title="Letters and numbers only" readonly>
+
+      <label for="inv_year">Year: <br></label>
+      <input type="number" name="inv_year" min="1901" max="2099" step="1" required <% if(locals.inv_year) { %>value="<%= locals.inv_year %>"<% } %> pattern="[0-9].{4,4}" title="4 digit year only" readonly>
+
+      <label for="inv_price">Price: <br></label>
+      <input type="number" placeholder="Price" name="inv_price" min="1" step="any" required <% if(locals.inv_price) { %>value="<%= locals.inv_price %>"<% } %> pattern="[0-9].{1,}" title="Whole number only" readonly>
+
+      <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+
+      <button type="submit">DELETE VEHICLE</button>
+
+      <p>Confirm Deletion - The delete is permanent.</p>
+    </fieldset>
+</form>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
